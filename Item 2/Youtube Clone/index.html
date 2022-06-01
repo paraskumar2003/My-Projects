@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youtube Clone</title>
+    <!-- Css Link -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'poppins', sans-serif;
+        }
+        
+        body {
+            background: whitesmoke;
+            overflow-y: scroll;
+        }
+        
+        a {
+            text-decoration: none;
+            color: #5a5a5a;
+        }
+        
+        img {
+            cursor: pointer;
+        }
+        /* CSS For Navbar */
+        
+        .flex-div {
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar {
+            justify-content: space-between;
+            background: white;
+            padding: 10px 2%;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .navbar .nav-left .menu {
+            width: 35px;
+            margin-right: 25px;
+        }
+        
+        .nav-left .logo {
+            width: 130px;
+        }
+        
+        .navbar .nav-middle {
+            justify-content: flex-end;
+            /* background: rgba(0,0,0,0.2); */
+            flex-basis: 40%;
+        }
+        
+        .navbar .nav-middle .search-box {
+            /* background: rgba(0,0,0,0.4); */
+            justify-content: space-between;
+            width: 100%;
+            border: 1px solid #ccc;
+            margin-right: 15px;
+            padding: 8px 12px;
+            border-radius: 25px;
+        }
+        
+        .nav-middle .search-box input {
+            width: 90%;
+            border: 0;
+            outline: none;
+            font-size: 18px;
+            color: rgba(0, 0, 0, 0.6);
+        }
+        
+        .nav-middle .mic-icon {
+            width: 25px;
+            margin-right: 25px;
+        }
+        
+        .nav-right img {
+            width: 35px;
+            margin-right: 25px;
+        }
+        
+        .nav-right .user-icon {
+            border-radius: 50%;
+        }
+        /* mobile responsive */
+        
+        @media(max-width:700px) {
+            .nav-right {
+                display: none;
+            }
+            .nav-middle {
+                flex-basis: 50%;
+            }
+        }
+        
+        @media(max-width:500px) {
+            .nav-middle .search-box input {
+                width: 0px;
+            }
+            .navbar .nav-middle .search-box {
+                width: 50px;
+            }
+        }
+        /* Navbar Finished */
+        /* Sidebar start */
+        
+        .sidebar {
+            /* overflow: scroll; */
+            transition: 0.1s all ease;
+            width: 200px;
+            background: white;
+            position: fixed;
+            top: 0;
+            padding-left: 1%;
+            padding-top: 80px;
+            margin-right: 5px;
+        }
+        
+        .sidebar .shortcut-links a {
+            display: flex;
+            align-items: center;
+            padding: 3px 10px;
+            margin-bottom: 20px;
+            width: fit-content;
+        }
+        
+        .shortcut-links a img {
+            width: 28px;
+            margin-right: 20px;
+        }
+        
+        .sidebar hr {
+            background-color: #ccc;
+            border: 0;
+            height: 1px;
+            color: #5a5a5a;
+            width: 95%;
+        }
+        
+        .sidebar .subscribed-list h3 {
+            color: #5a5a5a;
+            margin-top: 10px;
+        }
+        
+        .sidebar .subscribed-list a {
+            /* margin-left: 5px; */
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            width: fit-content;
+            flex-wrap: wrap;
+        }
+        
+        .subscribed-list a img {
+            width: 35px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+        /* small sidebar */
+        
+        .small-sidebar {
+            width: 65px;
+        }
+        
+        .small-sidebar .shortcut-links a p {
+            display: none;
+        }
+        
+        .small-sidebar .subscribed-list h3 {
+            display: none;
+        }
+        
+        .small-sidebar .subscribed-list a p {
+            display: none;
+        }
+        
+        @media(max-width:794px) {
+            .sidebar {
+                position: fixed;
+                left: 0;
+                transition: 0.2s all ease;
+                transform: translate(-100%);
+            }
+            .show-sidebar {
+                transform: translate(0);
+            }
+        }
+        /* main */
+        
+        .container {
+            transition: 0.2s all ease;
+            padding-left: 200px;
+            padding-right: 10px;
+            margin-left: 10px;
+        }
+        
+        .container .banner {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        
+        .container .banner img {
+            position: relative;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            z-index: -2;
+            border-radius: 5px;
+        }
+        
+        .container .banner h3 {
+            position: relative;
+            left: 5rem;
+            bottom: 5em;
+        }
+        /* large container */
+        
+        .large-container {
+            padding-left: 70px;
+        }
+        
+        @media screen and (min-width:794px) and (max-width: 811px) {
+            .container {
+                padding-left: 70px;
+            }
+        }
+        
+        @media(max-width:794px) {
+            .container {
+                padding: 15px 10px;
+                width: 100%;
+            }
+        }
+        
+        .container .list-container {
+            display: grid;
+            align-items: center;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-column-gap: 1rem;
+            grid-row-gap: 2rem;
+        }
+        
+        .vid-list .thumbnail {
+            width: 100%;
+            border-radius: 5px;
+        }
+        
+        .vid-list .flex-div {
+            align-items: flex-start;
+            margin-top: 7px;
+        }
+        
+        .vid-list .channel {
+            width: 40px;
+            margin-right: 15px;
+        }
+        
+        .vid-list .channel .channel-img {
+            width: 100%;
+            border-radius: 50%;
+        }
+        
+        .vid-list .vid-info a {
+            letter-spacing: 1px;
+            font-size: 14px;
+            color: black;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .vid-info p {
+            letter-spacing: 1px;
+            font-size: 14px;
+            color: #5a5a5a;
+            font-weight: 300;
+        }
+        /* video */
+        
+        .video {
+            width: 80%;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body id="body">
+    <!-- First write navbar -->
+    <div class="navbar flex-div">
+        <div class="nav-left flex-div">
+            <img src="images/menu.png" alt="" class="menu">
+            <img src="images/logo.png" alt="" class="logo">
+        </div>
+        <div class="nav-middle flex-div">
+            <div class="search-box flex-div">
+                <input type="text" placeholder="Search..">
+                <img src="images/search.png" alt="">
+            </div>
+            <img src="images/voice-search.png" alt="" class="mic-icon">
+        </div>
+        <div class="nav-right flex-div">
+            <img src="images/upload.png" alt="">
+            <img src="images/more.png" alt="">
+            <img src="images/notification.png" alt="">
+            <img src="images/Jack.png" alt="" class="user-icon">
+        </div>
+    </div>
+    <!-- Sidebar -->
+    <div class="sidebar small-sidebar">
+        <div class="shortcut-links">
+            <a href="#">
+                <img src="images/home.png" alt="">
+                <p>Home</p>
+            </a>
+        </div>
+        <div class="shortcut-links">
+            <a href="#">
+                <img src="images/explore.png" alt="">
+                <p>Explore</p>
+            </a>
+        </div>
+        <div class="shortcut-links">
+            <a href="#">
+                <img src="images/subscriprion.png" alt="">
+                <p>Subscription</p>
+            </a>
+        </div>
+        <div class="shortcut-links">
+            <a href="#">
+                <img src="images/library.png" alt="">
+                <p>Library</p>
+            </a>
+        </div>
+        <div class="shortcut-links">
+            <a href="#">
+                <img src="images/history.png" alt="">
+                <p>History</p>
+            </a>
+        </div>
+        <div class="shortcut-links">
+            <a href="#">
+                <img src="images/playlist.png" alt="">
+                <p>Playlist</p>
+            </a>
+        </div>
+        <div class="shortcut-links">
+            <a href="#">
+                <img src="images/messages.png" alt="">
+                <p>Messages</p>
+            </a>
+        </div>
+        <div class="shortcut-links">
+            <a href="#">
+                <img src="images/show-more.png" alt="">
+                <p>Show More</p>
+            </a>
+        </div>
+        <hr>
+        <!-- subscriptions -->
+        <div class="subscribed-list">
+            <h3>SUBSCRIBED</h3>
+            <a href="">
+                <img src="images/Jack.png" alt="">
+                <p>Jack Nicholas</p>
+            </a>
+            <a href="">
+                <img src="images/simon.png" alt="">
+                <p>Simon Baker</p>
+            </a>
+            <a href="">
+                <img src="images/tom.png" alt="">
+                <p>Tom Hardy</p>
+            </a>
+            <a href="">
+                <img src="images/megan.png" alt="">
+                <p>Megan Ryan</p>
+            </a>
+            <a href="">
+                <img src="images/cameron.png" alt="">
+                <p>Cameron Diaz</p>
+            </a>
+            <a href="">
+                <img src="images/cameron.png" alt="">
+                <p>Cameron Diaz</p>
+            </a>
+            <a href="">
+                <img src="images/cameron.png" alt="">
+                <p>Cameron Diaz</p>
+            </a>
+
+        </div>
+    </div>
+    <!-- main -->
+    <div class="container large-container">
+        <div class="banner">
+            <img src="images/banner.png" alt="">
+        </div>
+        <div class="list-container">
+            <div class="vid-list">
+                <a href="https://www.youtube.com/watch?v=3tI2MH2Ozv4">
+                    <img src="images/thumbnail1.png" alt="" class="thumbnail">
+                    <div class="flex-div">
+                        <a href="#" class="channel">
+                            <img src="images/Jack.png" alt="" class="channel-img">
+                        </a>
+                        <div class="vid-info">
+                            <a href="play-video.html">
+                                Ambar se toda || M M Kreem || S S Rajmouli
+                            </a>
+                            <p>Tea-series</p>
+                            <p>Underrated Views &bull; 2 weeks ago</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="vid-list">
+                <a href="https://www.youtube.com/watch?v=3tI2MH2Ozv4">
+                    <img src="images/thumbnail2.png" alt="" class="thumbnail">
+                    <div class="flex-div">
+                        <a href="#" class="channel">
+                            <img src="images/megan.png" alt="" class="channel-img">
+                        </a>
+                        <div class="vid-info">
+                            <a href="play-video.html">
+                                Ambar se toda || M M Kreem || S S Rajmouli
+                            </a>
+                            <p>Tea-series</p>
+                            <p>Underrated Views &bull; 2 weeks ago</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="vid-list">
+                <a href="https://www.youtube.com/watch?v=3tI2MH2Ozv4">
+                    <img src="images/thumbnail3.png" alt="" class="thumbnail">
+                    <div class="flex-div">
+                        <a href="#" class="channel">
+                            <img src="images/tom.png" alt="" class="channel-img">
+                        </a>
+                        <div class="vid-info">
+                            <a href="https://www.youtube.com/watch?v=3tI2MH2Ozv4">
+                                Ambar se toda || M M Kreem || S S Rajmouli
+                            </a>
+                            <p>Tea-series</p>
+                            <p>Underrated Views &bull; 2 weeks ago</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="vid-list">
+                <a href="https://www.youtube.com/watch?v=3tI2MH2Ozv4">
+                    <img src="images/thumbnail4.png" alt="" class="thumbnail">
+                    <div class="flex-div">
+                        <a href="#" class="channel">
+                            <img src="images/Jack.png" alt="" class="channel-img">
+                        </a>
+                        <div class="vid-info">
+                            <a href="play-video.html">
+                                Ambar se toda || M M Kreem || S S Rajmouli
+                            </a>
+                            <p>Tea-series</p>
+                            <p>Underrated Views &bull; 2 weeks ago</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="vid-list">
+                <a href="https://www.youtube.com/watch?v=3tI2MH2Ozv4">
+                    <img src="images/thumbnail5.png" alt="" class="thumbnail">
+                    <div class="flex-div">
+                        <a href="#" class="channel">
+                            <img src="images/Jack.png" alt="" class="channel-img">
+                        </a>
+                        <div class="vid-info">
+                            <a href="play-video.html">
+                                Ambar se toda || M M Kreem || S S Rajmouli
+                            </a>
+                            <p>Tea-series</p>
+                            <p>Underrated Views &bull; 2 weeks ago</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="vid-list">
+                <a href="https://www.youtube.com/watch?v=3tI2MH2Ozv4">
+                    <img src="images/thumbnail6.png" alt="" class="thumbnail">
+                    <div class="flex-div">
+                        <a href="#" class="channel">
+                            <img src="images/Jack.png" alt="" class="channel-img">
+                        </a>
+                        <div class="vid-info">
+                            <a href="play-video.html">
+                                Ambar se toda || M M Kreem || S S Rajmouli
+                            </a>
+                            <p>Tea-series</p>
+                            <p>Underrated Views &bull; 2 weeks ago</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="vid-list">
+                <a href="https://www.youtube.com/watch?v=3tI2MH2Ozv4">
+                    <img src="images/thumbnail8.png" alt="" class="thumbnail">
+                    <div class="flex-div">
+                        <a href="#" class="channel">
+                            <img src="images/Jack.png" alt="" class="channel-img">
+                        </a>
+                        <div class="vid-info">
+                            <a href="play-video.html">
+                                Ambar se toda || M M Kreem || S S Rajmouli
+                            </a>
+                            <p>Tea-series</p>
+                            <p>Underrated Views &bull; 2 weeks ago</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="vid-list">
+                <a href="https://www.youtube.com/watch?v=3tI2MH2Ozv4">
+                    <img src="images/thumbnail7.png" alt="" class="thumbnail">
+                    <div class="flex-div">
+                        <a href="#" class="channel">
+                            <img src="images/Jack.png" alt="" class="channel-img">
+                        </a>
+                        <div class="vid-info">
+                            <a href="play-video.html">
+                                Ambar se toda || M M Kreem || S S Rajmouli
+                            </a>
+                            <p>Tea-series</p>
+                            <p>Underrated Views &bull; 2 weeks ago</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const body = document.querySelector('#body');
+        let availWidth;
+        const sidebar = document.querySelector('.sidebar');
+        const toggleBtn = document.querySelector('.menu');
+        const container = document.querySelector('.container');
+        var isDefault = 0;
+        // Checking only in case of default
+        function checkWidth() {
+            if (availWidth > 1024 && isDefault == 0) {
+                toggleBtn.onclick = () => {
+                    if (sidebar.classList.contains('small-sidebar')) {
+                        sidebar.classList.remove('small-sidebar');
+                        if (container.classList.contains('large-container')) {
+                            container.classList.remove('large-container');
+                        }
+                    } else {
+                        container.classList.add('large-container');
+                        sidebar.classList.add('small-sidebar');
+                    }
+                }
+
+            }
+            if (availWidth <= 1024 && availWidth >= 794) {
+                if (!sidebar.classList.contains('small-sidebar') && isDefault == 0) {
+                    sidebar.classList.add('small-sidebar')
+                }
+                if (!container.classList.contains('large-container') && isDefault == 0) {
+                    container.classList.add('large-container');
+                }
+                toggleBtn.onclick = () => {
+                    isDefault++;
+                    sidebar.classList.toggle('small-sidebar')
+                    container.classList.toggle('large-container')
+                }
+            }
+            if (availWidth <= 794) {
+                toggleBtn.onclick = () => {
+                    sidebar.classList.remove('small-sidebar')
+                    sidebar.classList.toggle('show-sidebar');
+                }
+            }
+        }
+
+        function giveWidth() {
+            availWidth = body.getBoundingClientRect().width;
+            console.log(availWidth);
+        }
+        setInterval(checkWidth, 10);
+        setInterval(giveWidth, 10);
+    </script>
+
+
+</body>
+
+</html>
