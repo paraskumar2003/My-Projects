@@ -19,67 +19,6 @@ const replaceVal = (tempval, orgval) => {
     temperature = temperature.replace("{humidity}", orgval.main.humidity);
     return temperature;
 }
-
-// app.get("/", function(req, res) {
-
-
-
-const url = "https://api.openweathermap.org/data/2.5/weather?q=Agra,in&appid=f328047da69cf02de9d737ce3066d54d";
-
-//     https.get(`https://api.openweathermap.org/data/2.5/weather?q=Agra,in&appid=f328047da69cf02de9d737ce3066d54d&units=metric`, (response) => {
-//         response.on('data', (d) => {
-//             const weatherData = JSON.parse(d);
-//             const arrData = [weatherData];
-//             const realTimeData = arrData.map((val) => replaceVal(homefile, val)).join("");
-
-//             // response.sendFile(__dirname + "/HTML/index.html");
-
-//             res.send(realTimeData);
-//             console.log(weatherData);
-
-
-
-
-//         }).on('error', (d) => {
-//             res.end();
-//         })
-//     })
-// })
-
-
-
-
-
-
-
-// now target items to show data 
-// const tempMax = $(".temp h3");
-// const tempMin = $(".temp p");
-// const weatherDescription = $(".weather-description");
-// const pressure = $(".item1 p");
-// const visibility = $(".item2 p");
-// const humidity = $(".item3 p");
-// console.log(tempMax, tempMin, weatherDescription, pressure, visibility, humidity);
-
-// $(".weather-description").click(function() {
-//     console.log("okay");
-// });
-let data = {};
-https.get(url, (res) => {
-    res.on('data', (d) => {
-        data = JSON.parse(d);
-        console.log(data);
-
-        app.get("/", function(req, res) {
-            res.render("index", { tempval: data.main.temp, tempmin: data.main.temp_min });
-        })
-
-
-
-
-
-
-
-    })
+app.get("/", (req, res) => {
+    res.render("index")
 })
-const orgran = "this is git test";

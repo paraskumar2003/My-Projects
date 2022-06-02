@@ -109,9 +109,9 @@
                     <div class="middle flex-div">
                         <div class="temp flex-div">
                             <h3>
-                                <%= tempval %> &deg;C</h3>
+                                {temp} &deg;C</h3>
                             <p>
-                                <%= tempmin %> &deg;C</p><br>
+                                {tempmin} &deg;C</p><br>
                         </div>
                         <h3 class="weather-description">{weather-desc}</h3>
 
@@ -151,7 +151,7 @@
                             <h3>390</h3>
                             <p>AQI</p><br>
                         </div>
-                        <h3>West Wind</h3>
+                        <h3 class="wind-dir">West Wind</h3>
 
                     </div>
                     <div class="footer flex-div">
@@ -160,7 +160,7 @@
                             <div class="bad">Hazardous</div>
                         </div>
                         <div class="level-value">
-                            <input type="range">
+                            <input type="range" class="air-quality">
                         </div>
                     </div>
                 </div>
@@ -170,9 +170,58 @@
 
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="../app.js"></script>
+    <script>
+        // get data
+        const url = "https://api.waqi.info/search/?keyword=Agra&token=1901d33a6e603fc0440bfd58989829bde3bde73f";
+        const url2 = "https://api.openweathermap.org/data/2.5/weather?q=Agra,in&appid=f328047da69cf02de9d737ce3066d54d&units=metric";
+        fetch(url2).then((res) => {
+            return res.json();
+        }).then((data) => {
+            // console.log(data);
+            const details = [data];
+            Data = details.map((val) => {
+                console.log(val);
+                $(".window-1 .temp h3").text(val.main.temp + "°C");
+                $(" .window-1 .temp p").text(val.main.feels_like + "°C");
+                $(".weather-description").text(val.weather[0].description);
+                $(".footer .item1 p").text(val.main.pressure + "mb");
+                $(".item2 p").text(val.visibility + "m");
+                $(".item3 p").text(val.main.humidity + "%");
+                if (val.wind.deg > 315 || val.wind.deg < 45) {
+                    $(".wind-dir").text("North Wind  " + val.wind.deg + "° ")
+                }
+                if (val.wind.deg > 270 || val.wind.deg < 315) {
+                    $(".wind-dir").text("East Wind  " + val.wind.deg + "° ")
+                }
+                if (val.wind.deg > 135 || val.wind.deg < 271) {
+                    $(".wind-dir").text("South Wind  " + val.wind.deg + "° ")
+                } else {
 
-    <script src="../JS/app.js">
+                    $(".wind-dir").text("West Wind  " + val.wind.deg + "° ")
+                }
+
+            }).join("");
+
+            //first weather
+
+        })
+
+        fetch(url).then((res) => {
+            return res.json()
+        }).then((data) => {
+            // console.log(data);
+            const details = [data];
+            Data = details.map((val) => {
+                console.log(val);
+                $(".window-2 .about p").text(val.data[0].station.name)
+                $(".window-2 .temp h3").text(val.data[0].aqi)
+                const aqi = (val.data[0].aqi * 100) / 350;
+                $(".air-quality").attr("value", 90);
+
+            }).join("");
+            // $('.air-quality').rangeslider('disable');
+            document.querySelector(".air-quality").disabled = true;
+        })
     </script>
 
 </body>
