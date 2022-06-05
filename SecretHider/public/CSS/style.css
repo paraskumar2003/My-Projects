@@ -1,0 +1,72 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(255, 255, 255);
+}
+
+.navbar {
+    padding: 2rem;
+    max-width: 1200px;
+}
+
+.nav-link {
+    color: #6C63FF;
+}
+
+.active {
+    color: white;
+    background: #6C63FF;
+}
+
+.introduction button a {
+    color: white;
+    text-decoration: none;
+}
+
+main {
+    display: grid;
+    place-items: center;
+    place-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    padding: 2rem 2rem;
+}
+
+@media(max-width:762px) {
+    .introduction {
+        text-align: center;
+    }
+}
+
+.introduction,
+.image {
+    padding: 3rem 0;
+}
+
+.introduction h1 {
+    color: #6C63FF;
+    font-size: 3em;
+    padding: 1rem 0px;
+}
+
+.introduction p {
+    padding-bottom: 8px;
+}
+
+.image img {
+    width: 100%;
+}
+
+.btn {
+    background-color: #6C63FF;
+}
+
+.btn:hover {
+    color: #6C63FF;
+    border-color: #6C63FF;
+    background-color: #6C63FF;
+    opacity: 0.8;
+}
