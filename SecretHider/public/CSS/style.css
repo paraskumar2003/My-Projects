@@ -22,6 +22,21 @@ body {
     background: #6C63FF;
 }
 
+.active:hover {
+    background-color: white;
+    color: #6C63FF;
+    border: 1px solid #6C63FF;
+}
+
+.nav-link {
+    border-radius: 5px;
+}
+
+.nav-link:hover {
+    color: white;
+    background-color: #6c63ff;
+}
+
 .introduction button a {
     color: white;
     text-decoration: none;
@@ -31,13 +46,16 @@ main {
     display: grid;
     place-items: center;
     place-content: center;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     padding: 2rem 2rem;
 }
 
 @media(max-width:762px) {
     .introduction {
         text-align: center;
+    }
+    .register-main .image {
+        display: none;
     }
 }
 
@@ -48,12 +66,16 @@ main {
 
 .introduction h1 {
     color: #6C63FF;
-    font-size: 3em;
+    font-size: 3.5em;
     padding: 1rem 0px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .introduction p {
     padding-bottom: 8px;
+    font-size: 1.5rem;
+    font-weight: 100;
+    letter-spacing: 1px;
 }
 
 .image img {
@@ -69,4 +91,59 @@ main {
     border-color: #6C63FF;
     background-color: #6C63FF;
     opacity: 0.8;
+}
+
+
+/* sign up /register page */
+
+.register-main {
+    padding: 3rem 2rem;
+}
+
+.register p {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.register p a {
+    text-decoration: none;
+}
+
+.btn-social {
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    margin-top: 18px;
+    padding: 5px 0px;
+}
+
+.btn-social a {
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.btn-google a {
+    color: rgba(0, 0, 0, 0.611);
+}
+
+.btn-facebook {
+    background-color: rgb(49, 49, 152);
+}
+
+.btn-facebook a {
+    color: white;
+}
+
+.btn-register {
+    color: white;
+    text-decoration: none;
+}
+
+.btn-register:hover .btn {
+    color: white;
+}
+
+.btn-register:hover,
+.btn-register:active {
+    background-color: #6C63FF;
+    opacity: 0.9;
 }
