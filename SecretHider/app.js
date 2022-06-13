@@ -26,7 +26,10 @@ app.use(express.static("public"));
 app.set("view engine", 'ejs');
 app.listen(3000, () => {
     console.log("Server started at port 3000");
-})
+});
+
+const id=[];
+const userId = id[0];
 
 
 
@@ -48,7 +51,7 @@ const userSchema = new mongoose.Schema({
     password: String,
     googleId: String,
     facebookId: String,
-    secret: String
+    secrets: []
 })
 userSchema.plugin(passportLocalMongoose, { usernameField: "email" });
 userSchema.plugin(findOrCreate);
@@ -77,6 +80,7 @@ passport.use(new GoogleStrategy({
     },
     function(accessToken, refreshToken, profile, cb) {
         User.findOrCreate({ googleId: profile.id }, function(err, user) {
+            id.push(user._id);
             return cb(err, user);
         });
     }
@@ -88,8 +92,9 @@ passport.use(new FacebookStrategy({
         profileFields: ['id', 'displayName', 'photos', 'email']
     },
     function(accessToken, refreshToken, profile, cb) {
-        console.log(profile);
+        // console.log(profile);
         User.findOrCreate({ facebookId: profile.id }, function(err, user) {
+            id.push(user._id);
             return cb(err, user);
         });
     }
@@ -147,7 +152,14 @@ app.get("/logout", (req, res) => {
 
 app.get("/secret", function(req, res) {
     if (req.isAuthenticated()) {
-        res.render("secret");
+        User.findOne({_id:id[0]},(err,Secrets)=>{
+            if(!err){
+                console.log(Secrets.secrets);
+                res.render("secret",{SecretsToRender:Secrets.secrets});
+            }else{
+                console.log(err);
+            }
+        })
     } else {
         res.redirect("/login");
     }
@@ -189,4 +201,13 @@ app.post("/login", (req, res) => {
 
         }
     })
+})
+
+// posting secrets
+app.post("/post-secret",(req,res)=>{
+    console.log(req.body);
+    if(req.body.title !== "" || req.body.content !== ""){
+    User.updateOne({_id:id[0]},{$push:{secrets:{title:req.body.title,content:req.body.content}}},(err,user)=>{});
+    res.redirect("/secret");
+}
 })

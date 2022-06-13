@@ -14,18 +14,18 @@ body {
 }
 
 .nav-link {
-    color: #6C63FF;
+    color: chocolate;
 }
 
 .active {
     color: white;
-    background: #6C63FF;
+    background: chocolate;
 }
 
 .active:hover {
     background-color: white;
-    color: #6C63FF;
-    border: 1px solid #6C63FF;
+    color: chocolate;
+        border: 1px solid chocolate;
 }
 
 .nav-link {
@@ -34,7 +34,7 @@ body {
 
 .nav-link:hover {
     color: white;
-    background-color: #6c63ff;
+    background-color: chocolate;
 }
 
 .introduction button a {
@@ -65,7 +65,7 @@ main {
 }
 
 .introduction h1 {
-    color: #6C63FF;
+    color: chocolate;
     font-size: 3.5em;
     padding: 1rem 0px;
     font-family: 'Montserrat', sans-serif;
@@ -83,13 +83,14 @@ main {
 }
 
 .btn {
-    background-color: #6C63FF;
+    background-color: chocolate;
+        border-color: chocolate;
 }
 
 .btn:hover {
-    color: #6C63FF;
-    border-color: #6C63FF;
-    background-color: #6C63FF;
+    color: white;
+        border-color: chocolate;
+        background-color: chocolate;
     opacity: 0.8;
 }
 
@@ -99,6 +100,9 @@ main {
 .register-main {
     padding: 3rem 2rem;
 }
+.register h1 {
+    margin-bottom: 8px;
+}
 
 .register p {
     color: rgba(0, 0, 0, 0.5);
@@ -106,6 +110,7 @@ main {
 
 .register p a {
     text-decoration: none;
+    color: chocolate;
 }
 
 .btn-social {
@@ -144,6 +149,102 @@ main {
 
 .btn-register:hover,
 .btn-register:active {
-    background-color: #6C63FF;
+    background-color: chocolate;
     opacity: 0.9;
+}
+.search-form input {
+    outline: none;
+    border: none;
+}
+
+.logo-container h1 {
+    color: chocolate;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 2rem;
+}
+
+.fa-key {
+    color: chocolate;
+}
+
+.secret-page-navbar {
+    padding: 1rem;
+}
+
+main.secret-notes {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.secret-notes form {
+    width: 100%;
+}
+
+.secret-notes form input,
+.secret-notes form textarea {
+    border: none;
+}
+
+.notepad {
+    padding: 30px;
+    border: 2px solid black;
+    border-radius: 10%;
+}
+
+.imported {
+    position: relative;
+    width: 480px;
+    margin: 10px auto 10px auto;
+    background: #fff;
+    padding: 15px;
+    border-radius: 7px;
+    box-shadow: 0 1px 5px rgb(138, 137, 137);
+}
+
+.imported input,
+.imported textarea {
+    width: 100%;
+    border: none;
+    padding: 4px;
+    outline: none;
+    font-size: 1.2em;
+    font-family: inherit;
+    resize: none;
+}
+
+.imported button {
+    position: absolute;
+    right: 18px;
+    bottom: -18px;
+    background: chocolate;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    outline: none;
+}
+.secret-note-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+}
+.secret-note{
+    background-color: white;
+    box-shadow: 0 1px 5px rgb(138, 137, 137);
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 20px;
+}
+.secret-note h1{
+    font-size: 1.5em;
+    font-weight: 400;
+    color: chocolate;
+}
+.secret-note p{
+    font-size: 1em;
+    font-weight: 300;
 }
